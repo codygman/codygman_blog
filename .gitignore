@@ -1,0 +1,7 @@
+*.hi
+*.o
+.hsenv
+_cache/
+_site/
+blog
+draft
