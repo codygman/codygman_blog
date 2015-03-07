@@ -51,7 +51,7 @@ First let's get some imports out of the way:
 "              perf3                   perf3 / \n              macros      chars       chars * 100\n  -------------------------------------------------\n  scala       15963       24885       64,15\n  nim         11121       20263       54,88\n  java        17969       53223       33,76\n  ocaml       7063        24371       28,98\n  coffee      2326        15653       14,86\n  racket      2461        17229       14,28\n  cs          5414        45039       12,02\n  clojure     1174        10099       11,62\n  ruby        1255        13247       9,47\n  go          3048        36321       8,39\n  vb          4523        58099       7,78\n  rust        4084        56516       7,23\n  js          1726        26437       6,53\n  c           3649        73047       5,00\n  haskell     1163        30115       3,86\n  python      304         19632       1,55\n  forth       563         44715       1,26\n  php         331         27332       1,21\n"
 ```
 
-Oh, they are all sorted by newlines first of all. What is the function to turn newline separated text into a list in Haskell? It's the aptlay named lines function from Data.List!
+Oh, they are all sorted by newlines first of all. What is the function to turn newline separated text into a list in Haskell? It's the aptly named lines function from Data.List!
 
 ```haskell
 λ> lines <$> readFile "langstats.txt"
