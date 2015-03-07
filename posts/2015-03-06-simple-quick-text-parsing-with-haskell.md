@@ -36,6 +36,16 @@ You may notice that this is sorted by the last column "perf3/chars * 100". I sim
 
 So how do we make sense of the above chart? I'm going to start by saving the chart above into a file named "langstats.txt". Next we can read the file into a string using the `readFile` function and then "pipe" the results with =<< to the print function.
 
+First let's get some imports out of the way:
+
+```haskell
+λ> import System.IO (readFile)
+λ> import Control.Applicative ((<$>))
+λ> import Data.Maybe (isJust, fromJust)
+λ> import Data.List (sortBy)
+λ> import Data.Function (on)
+```
+
 ```haskell
 λ> print =<< readFile "langstats.txt"
 "              perf3                   perf3 / \n              macros      chars       chars * 100\n  -------------------------------------------------\n  scala       15963       24885       64,15\n  nim         11121       20263       54,88\n  java        17969       53223       33,76\n  ocaml       7063        24371       28,98\n  coffee      2326        15653       14,86\n  racket      2461        17229       14,28\n  cs          5414        45039       12,02\n  clojure     1174        10099       11,62\n  ruby        1255        13247       9,47\n  go          3048        36321       8,39\n  vb          4523        58099       7,78\n  rust        4084        56516       7,23\n  js          1726        26437       6,53\n  c           3649        73047       5,00\n  haskell     1163        30115       3,86\n  python      304         19632       1,55\n  forth       563         44715       1,26\n  php         331         27332       1,21\n"
@@ -99,13 +109,19 @@ Alright now let's make a function to parse that same first element into an Entry
 
 We need to use the multiline definition format (start `:{` and end `:}`) or pattern matches won't work right in ghci.
 
+So first type a `:{` in ghci, then paste the following:
+
 ```haskell
-λ> -- 
-λ> :{
-*Main Main Data.List| let parseEntry (a:b:c:_) = Just $ Entry a (read b :: Int) (read c :: Int)
-*Main Main Data.List|     parseEntry _ = Nothing
-*Main Main Data.List| :}
+let parseEntry (a:b:c:_) = Just $ Entry a (read b :: Int) (read c :: Int)
+    parseEntry _ = Nothing
 ```
+
+Now end the multiline expression by typing a `:}` and hitting enter, all together it should look like this (don't worry that the formatting looks messed up, it'll still work):
+
+λ> :{
+*Main System.IO Control.Applicative| let parseEntry (a:b:c:_) = Just $ Entry a (read b :: Int) (read c :: Int)
+    parseEntry _ = Nothing
+*Main System.IO Control.Applicative| *Main System.IO Control.Applicative| :}
 
 Let's try it out:
 
