@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Real World Haskell - Cassandra Part 1: Connecting to a Cassandra
+title: Real World Haskell - Cassandra Part 1 - Connecting to Cassandra
 description: "A reproducible diary of my failures (and eventual success) in connecting to Cassandra with Haskell"
 category: 
 tags: [Haskell]
