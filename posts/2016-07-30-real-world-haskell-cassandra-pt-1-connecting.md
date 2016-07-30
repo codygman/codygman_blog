@@ -6,8 +6,8 @@ category:
 tags: [Haskell]
 ---
 
-I use cassandra at work and was wondering what a complete Haskell solution would look like. I go
-to hackage and type in "cassandra" and [these results](http://hackage.haskell.org/packages/search?terms=cassandra) are returned:
+I use Cassandra at work and was wondering what a complete Haskell solution would look like. I go
+to Hackage and type in "Cassandra" and [these results](http://hackage.haskell.org/packages/search?terms=cassandra) are returned:
 
 
 ```
@@ -161,7 +161,7 @@ Completed 8 action(s).
 /tmp/test-cassandra-cql λ 
 ```
 
-Cool, now it's installed and we are ready to write some code. Let's be lazy and peruse the [github link](https://github.com/the-real-blackh/cassandra-cql) I found on [cassandra-cql's hackage page](http://hackage.haskell.org/package/cassandra-cql). At the github page I see something like this:
+Cool, now it's installed and we are ready to write some code. Let's be lazy and peruse the [github link](https://github.com/the-real-blackh/cassandra-cql) I found on [cassandra-cql's Hackage page](http://hackage.haskell.org/package/cassandra-cql). At the github page I see something like this:
 
 ```
  	Database/Cassandra 	executeTrans now takes consistency as a parameter. 	7 months ago
@@ -406,7 +406,7 @@ failed to create a session due to permanent error (will rethrow) : user interrup
 Interrupted.
 ```
 
-Uh oh, we forgot to actually make a cassandra server available. We can use docker to quickly do that. If you don't have docker installed check out [docker's installation page](https://docs.docker.com/engine/installation/). So open up another terminal and type:
+Uh oh, we forgot to actually make a Cassandra server available. We can use Docker to quickly do that. If you don't have Docker installed check out [Docker's installation page](https://docs.docker.com/engine/installation/). So open up another terminal and type:
 
 ```
 docker run -p 9042:9042 -p 9160:9160 -it --name some-cassandra cassandra:latest
@@ -442,9 +442,9 @@ Uh oh, it's an unexpected version. Maybe cassandra-cql doesn't support latest ve
 
 "Haskell client for Cassandra's CQL binary protocol v2"
 
-I believe the latest cassandra uses cql version 3.3, so we'll need a little older cassandra. 
+I believe the latest Cassandra uses CQL version 3.3, so we'll need a little older Cassandra. 
 
-Let's check what tags are available on the [docker cassandra page](https://hub.docker.com/_/cassandra/)
+Let's check what tags are available on the [Docker Cassandra page](https://hub.docker.com/_/cassandra/)
 
 ```
     2.1.15, 2.1 (2.1/Dockerfile)
@@ -453,7 +453,7 @@ Let's check what tags are available on the [docker cassandra page](https://hub.d
     3.7, 3, latest (3.7/Dockerfile)
 ```
 
-Hm, let's guess and try 3.0.8.
+Hm, **let's guess and try 3.0.8**.
 
 ```
 /tmp/test-cassandra-cql λ docker rm -f some-cassandra && docker run -p 9042:9042 -p 9160:9160 -it --name some-cassandra cassandra:3.0.8
@@ -461,7 +461,7 @@ some-cassandra
 INFO  18:07:43 Configuration location: file:/etc/cassandra/cassandra.yaml
 INFO  18:07:53 Starting listening for CQL clients on /0.0.0.0:9042 (unencrypted)...
 
-... snip (random cassandra logs) ...
+... snip (random Cassandra logs) ...
 
 INFO  18:07:53 Not starting RPC server as requested. Use JMX (StorageService->startRPCServer()) or nodetool (enablethrift) to start it
 INFO  18:07:55 Created default superuser role 'cassandra'
@@ -474,7 +474,7 @@ Then try running our main function again:
 failed to create a session due to temporary error (will retry) : LocalProtocolError "unexpected version 4" "<startup>"
 ```
 
-I'm not sure how cql versions/cassandra correspond so I'm just going to try the oldest tag and see if it works.
+I'm not sure how CQL versions/Cassandra correspond so I'm just going to try the oldest tag and see if it works.
 
 ```
 /tmp/test-cassandra-cql λ docker rm -f some-cassandra && docker run -p 9042:9042 -p 9160:9160 -it --name some-cassandra cassandra:2.1
@@ -498,7 +498,7 @@ failed to create a session due to permanent error (will rethrow) : user interrup
 Interrupted.
 ```
 
-Awesome! We're almost there, just need to create the keyspace. Can we do that with cassandra-cql? I [searched "keyspace"](https://github.com/the-real-blackh/cassandra-cql/search?utf8=%E2%9C%93&q=keyspace) on the cassandra-cql github and one of the results was "tests/example-autocreate-keyspace.hs". It looks like the example we copy pasted except it auto creates the keyspace. So copy the below into your main.hs:
+Awesome! We're almost there, just need to create the keyspace. Can we do that with cassandra-cql? I [searched "keyspace"](https://github.com/the-real-blackh/cassandra-cql/search?utf8=%E2%9C%93&q=keyspace) on the cassandra-cql github and one of the results was "tests/example-autocreate-keyspace.hs". It looks like the example we copy pasted except it auto creates the keyspace. So copy the below into your `main.hs`:
 
 ```haskell
 {-# LANGUAGE OverloadedStrings, DataKinds #-}
@@ -583,9 +583,9 @@ Failed, modules loaded: none.
 Prelude>  1
 ```
 
-I know from experience that at this point it's probably because the version on github I copied the example from and the version on hackage differ. Sure enough after checking I see the hackage version is at 0.5.0.2 and the github version is at 0.6. I'm just going to use the github version, luckily stack makes that pretty easy.
+I know from experience that at this point it's probably because the version on github I copied the example from and the version on Hackage differ. Sure enough after checking I see the Hackage version is at 0.5.0.2 and the github version is at 0.6. I'm just going to use the github version, luckily stack makes that pretty easy.
 
-Here is our current stack.yaml:
+Here is our current `stack.yaml`:
 
 ```yaml
 flags: {}
@@ -597,7 +597,7 @@ extra-deps:
 resolver: lts-6.9
 ```
 
-I've been busy doing Go programming at work and can't recall the git syntax for Stack, so I'll refer to this [big faq page they have](https://docs.haskellstack.org/en/stable/faq/). In about 15 seconds I see "I need to use a package (or version of a package) that is not available on hackage, what should I do?" and then:
+I've been busy doing Go programming at work and can't recall the git syntax for Stack, so I'll refer to this [big FAQ page they have](https://docs.haskellstack.org/en/stable/faq/). In about 15 seconds I see "I need to use a package (or version of a package) that is not available on Hackage, what should I do?" and then:
 
 ```
 To install packages directly from a Git repository, use e.g.:
@@ -609,7 +609,7 @@ packages:
     commit: somecommitID
 ```
 
-So we can update our stack.yaml from above to:
+So we can update our `stack.yaml` from above to:
 
 ```yaml
 flags: {}
@@ -623,7 +623,6 @@ resolver: lts-6.9
 ```
 
 Then we can restart stack ghci:
-
 
 ```
 Prelude> :r
@@ -716,7 +715,7 @@ Failed, modules loaded: none.
 ```
 
 
-Whoa, it partially worked but then barfed on an error I have both not seen before and don't know what it is. I have a hunch it's something to do with multiple but different versions of cassandra-cql's dependencies. So I'll try something quick and easy, the equivalent of "turn it on and off again":
+Whoa, it partially worked but then barfed on an error I've both not seen before and don't currently know what it is. I have a hunch it's something to do with multiple but different versions of cassandra-cql's dependencies. So I'll try something quick and easy, the equivalent of "turn it off and then on again":
 
 
 ```
@@ -804,7 +803,7 @@ Prelude>
 ```
 
 
-I somehow figured out that this issue is caused by these libraries being in our cabal file:
+After some reflection, figured out that this issue is caused by these libraries being in our Cabal file:
 
 ```
 name:                test-cassandra-cql
@@ -866,7 +865,7 @@ executable test-cassandra-cql
                        random
 ```
 
-Then run `stack ghci` again and you'll see those errors went away (though we have a lot of warnings):
+Then run `stack ghci` again and you'll see those errors have gone away (though we have a lot of warnings):
 
 ```
 /tmp/test-cassandra-cql λ stack ghci
@@ -995,7 +994,7 @@ Ok, modules loaded: Database.Cassandra.CQL, Main.
 *Main Database.Cassandra.CQL> 
 ```
 
-Now we can try to run our main function again:
+Now, we can try to run our main function again:
 
 ```
 *Main Database.Cassandra.CQL> main
@@ -1027,4 +1026,4 @@ Just ("Evanescence",799)
 
 And success!
 
-Part 2 will be a retrospective looking back at this process and how connecting to Cassandra in Haskell could be made easier for someone who might not have the luxury of time and patience that I had to get this working.
+Part 2 will be a retrospective reflecting on this process and how connecting to Cassandra in Haskell could be made easier for someone who might not have the luxury of time and patience that I had to get this working.
