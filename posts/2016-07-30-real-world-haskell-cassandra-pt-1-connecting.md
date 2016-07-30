@@ -6,7 +6,7 @@ category:
 tags: [Haskell]
 ---
 
-I use Cassandra at work and was wondering what a complete solution for connecting to it with Haskell would look like. The following will function mainly as a cookbook for connecting to cassandra but is also littered with the real world sharp edges (and their workarounds) you sometimes have to deal with in Real World Haskell development.
+I use Cassandra at work and was wondering what a complete solution for connecting to it with Haskell would look like. The following will function mainly as a cookbook for connecting to Cassandra but is also littered with the real world sharp edges (and their workarounds) you sometimes have to deal with in Real World Haskell development.
 
 I go to Hackage and type in "Cassandra" and [these results](http://hackage.haskell.org/packages/search?terms=cassandra) are returned:
 
