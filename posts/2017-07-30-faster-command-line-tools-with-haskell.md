@@ -739,28 +739,4 @@ isSpaceWord8 w =
 
 It does a comparison to the Word8 value directly rather than `\t`, though thinking in terms of platonic ideals I'm wondering if this isn't something a sufficiently smart compiler should aim to optimize. 
 
-TODO: Run with -O1
-
-
-cody@zentop:~/faster-command-line-tools-with-haskell/haskell-version$ stack clean && stack build && stack exec -- time haskell-version
-haskell-version-0.1.0.0: configure (exe)
-Configuring haskell-version-0.1.0.0...
-haskell-version-0.1.0.0: build (exe)
-Preprocessing executable 'haskell-version' for haskell-version-0.1.0.0...
-[1 of 1] Compiling Main             ( src/Main.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/haskell-version/haskell-version-t
-mp/Main.o )                                                                                                                           
-Linking .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/haskell-version/haskell-version ...
-haskell-version-0.1.0.0: copy/register
-Installing executable(s) in
-/home/cody/faster-command-line-tools-with-haskell/haskell-version/.stack-work/install/x86_64-linux/lts-9.0/8.0.2/bin
-(2006,22569011)
-1.99user 0.09system 0:02.09elapsed 99%CPU (0avgtext+0avgdata 245052maxresident)k
-0inputs+0outputs (0major+14074minor)pagefaults 0swaps
-
-
-Apply to everything:
-
-
-
-
 There we have it: Faster command line tools with Haskell and a short practical guide to benchmarking and improving performance!
