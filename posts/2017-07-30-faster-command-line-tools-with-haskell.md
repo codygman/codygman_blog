@@ -6,7 +6,7 @@ category:
 tags: [Haskell vector]
 ---
 
-**Retraction/Update** : The Haskell program at the end of this article was not faster. Friends don't let friends benchmark after dark. I seem to have made a benchmarking mistake and measured the total time of the benchmark in the Go program vs one iteration of the Haskell program. I was in a hurry for this entire post and rushed through a few pieces of it due to time constraints. If I'd had more time, I would have written a Criterion benchmark for both the Go and Haskell program. In the future I think I'll do so to reduce the possibility of mistakes like this.
+**Retraction/Update** : The Haskell program at the end of this article was not faster. Friends don’t let friends benchmark after dark. I seem to have made a benchmarking mistake and measured the total time of the benchmark in the Go program vs one iteration of the Haskell program. I was in a hurry for this entire post and rushed through a few pieces of it due to time constraints. If I’d had more time, I would have written a Criterion benchmark for both the Go and Haskell program. In the future I think I’ll do so to reduce the possibility of mistakes like this.
 
 Inspired by [Faster command line tools with Go](https://aadrake.com/posts/2017-05-29-faster-command-line-tools-with-go.html) which itself was inspired by [Faster Command Line Tools in D](http://dlang.org/blog/2017/05/24/faster-command-line-tools-in-d/).
 
