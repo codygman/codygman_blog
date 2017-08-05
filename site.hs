@@ -6,6 +6,15 @@ import           Hakyll
 
 
 --------------------------------------------------------------------------------
+myFeedConfiguration :: FeedConfiguration
+myFeedConfiguration = FeedConfiguration
+    { feedTitle       = "Real World Haskell with codygman"
+    , feedDescription = "Tackling real world problems with Haskell"
+    , feedAuthorName  = "Cody Goodman"
+    , feedAuthorEmail = "codygman.consulting@gmail.com"
+    , feedRoot        = "https://codygman.github.io"
+    }
+
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
@@ -24,6 +33,7 @@ main = hakyll $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            -- >>= saveSnapshot "content"
             >>= relativizeUrls
 
     match "posts/*" $ do
@@ -63,6 +73,16 @@ main = hakyll $ do
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateCompiler
+
+    create ["atom.xml"] $ do
+      route idRoute
+      compile $ do
+        let feedCtx = postCtx `mappend` (constField "description" "Better description coming soon..")
+        posts <- fmap (take 10) . recentFirst =<< loadAll "posts/*"
+        renderAtom myFeedConfiguration feedCtx posts
+        -- posts <- fmap (take 10) . recentFirst =<< renderAtom myFeedConfiguration feedCtx posts
+          -- loadAllSnapshots "posts/*" "content" -- TODO fix issue with first post always saying: 
+          -- [ERROR] Hakyll.Core.Compiler.Require.load: posts/2013-05-23-migrating-mysql-data-across-schemas-in-django.md (snapshot content) was no
 
 
 --------------------------------------------------------------------------------
